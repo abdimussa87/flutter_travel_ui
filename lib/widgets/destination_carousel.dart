@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travel_ui/screens/destination_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/destination_model.dart';
 
@@ -45,97 +47,109 @@ class DestinationCarousel extends StatelessWidget {
             itemCount: destinations.length,
             itemBuilder: (context, int index) {
               Destination destination = destinations[index];
-              return Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                width: 210,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    Positioned(
-                      bottom: 15,
-                      child: Container(
-                        width: 200,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                destination.activities.length.toString() +
-                                    ' Activities',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.2,
-                                ),
-                              ),
-                              Text(
-                                destination.description,
-                                style: TextStyle(fontSize: 13,color: Colors.grey),
-                              ),
-                            ],
+              return GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DestinationScreen(destination: destination),
+                  ),
+                ),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 8),
+                  width: 210,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: <Widget>[
+                      Positioned(
+                        bottom: 15,
+                        child: Container(
+                          width: 200,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        ),
-                      ),
-                    ),
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                          width: 180,
-                          height: 180,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              destination.imageUrl,
-                              fit: BoxFit.cover,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  destination.activities.length.toString() +
+                                      ' Activities',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
+                                Text(
+                                  destination.description,
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.grey),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 10,
-                          left: 15,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                destination.country,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
+                      ),
+                      Stack(
+                        children: <Widget>[
+                          Container(
+                            width: 180,
+                            height: 180,
+                            child: Hero(
+                              tag: destination.imageUrl,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.asset(
+                                  destination.imageUrl,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.location_on,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    destination.city,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                  ],
+                          Positioned(
+                            bottom: 10,
+                            left: 15,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  destination.country,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.locationArrow,
+                                      size: 12,
+                                      color: Colors.white70,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      destination.city,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
